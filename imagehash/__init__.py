@@ -203,7 +203,7 @@ def dhash(image, hash_size=8):
 	if hash_size < 2:
 		raise ValueError("Hash size must be greater than or equal to 2")
 
-	image = image.convert("L").resize((hash_size + 1, hash_size), Image.ANTIALIAS)
+	image = image.resize((hash_size + 1, hash_size), Image.ANTIALIAS).convert("L")
 	pixels = numpy.asarray(image)
 	# compute differences between columns
 	diff = pixels[:, 1:] > pixels[:, :-1]
@@ -221,7 +221,7 @@ def dhash_vertical(image, hash_size=8):
 	@image must be a PIL instance.
 	"""
 	# resize(w, h), but numpy.array((h, w))
-	image = image.convert("L").resize((hash_size, hash_size + 1), Image.ANTIALIAS)
+	image = image.resize((hash_size, hash_size + 1), Image.ANTIALIAS).convert("L")
 	pixels = numpy.asarray(image)
 	# compute differences between rows
 	diff = pixels[1:, :] > pixels[:-1, :]
